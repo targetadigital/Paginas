@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cargando…</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   NO HACE FALTA TOCAR NADA DE AQUI PARA ABAJO.
+   Todo lo que cambia por cliente esta en el bloque NEGOCIO, al final.
+   ========================================================================== */
+:root{
+  --acento:#0F6E6A;
+  --tinta:#16232E;
+  --tinta-suave:#5B6B78;
+  --linea:#E4E7E6;
+  --fondo:#EFF1F0;
+  --carta:#FFFFFF;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--fondo);color:var(--tinta);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --tinta:#EDF1F3;--tinta-suave:#9AA7B1;--linea:#2A3640;
+    --fondo:#0E161C;--carta:#17222B;
+  }
+}
+.marco{max-width:430px;margin:0 auto;background:var(--carta);min-height:100vh;
+  box-shadow:0 0 60px rgba(0,0,0,.06)}
+
+/* ---------- portada e identidad ---------- */
+.portada{height:132px;background:var(--acento);background-size:cover;
+  background-position:center;position:relative}
+.portada::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(to bottom,rgba(0,0,0,.05),rgba(0,0,0,.28))}
+.identidad{padding:0 24px 24px;text-align:center}
+.logo{width:92px;height:92px;border-radius:24px;object-fit:cover;
+  margin:-46px auto 14px;display:block;position:relative;z-index:1;
+  border:4px solid var(--carta);background:var(--carta);
+  box-shadow:0 6px 20px rgba(0,0,0,.14)}
+.nombre{font-size:29px;font-weight:800;letter-spacing:-.035em;line-height:1.1;margin:0}
+.lema{color:var(--acento);font-weight:600;font-size:14px;margin:7px 0 0}
+.descripcion{color:var(--tinta-suave);font-size:14.5px;margin:12px 0 0;
+  max-width:34ch;margin-inline:auto}
+
+/* ---------- acciones ---------- */
+.acciones{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 20px 22px}
+.accion{display:flex;align-items:center;justify-content:center;gap:8px;
+  font:inherit;font-weight:600;font-size:14.5px;padding:14px 8px;border-radius:14px;
+  border:0;cursor:pointer;text-decoration:none;background:var(--acento);color:#fff}
+.accion.gris{background:transparent;color:var(--tinta);
+  border:1.5px solid var(--linea)}
+.accion:active{transform:scale(.975)}
+.accion svg{width:19px;height:19px;flex:none}
+
+/* ---------- cuadricula de enlaces ---------- */
+.rejilla{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 20px}
+.tarjeta{display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:9px;padding:18px 12px;border-radius:16px;background:var(--fondo);
+  text-decoration:none;color:inherit;text-align:center;font-weight:500;
+  font-size:14px;line-height:1.3;min-height:92px}
+.tarjeta svg{width:25px;height:25px;flex:none;color:var(--acento)}
+.tarjeta:active{transform:scale(.97)}
+.tarjeta.resenas svg{color:inherit}
+
+/* ---------- filas de enlaces ---------- */
+.seccion{padding:0 20px}
+.rotulo{font-size:12.5px;font-weight:600;color:var(--tinta-suave);
+  padding:18px 4px 9px;border-top:1px solid var(--linea);margin-top:4px}
+.fila{display:flex;align-items:center;gap:13px;padding:14px 4px;
+  text-decoration:none;color:inherit;border-bottom:1px solid var(--linea)}
+.fila:last-child{border-bottom:0}
+.fila:active{opacity:.55}
+.fila .ico{width:21px;height:21px;flex:none;color:var(--acento)}
+.fila .txt{flex:1;min-width:0;font-weight:500;font-size:15.5px;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fila .sub{font-size:13px;color:var(--tinta-suave);font-weight:400}
+.fila .fle{width:8px;height:13px;flex:none;color:var(--tinta-suave);opacity:.55}
+
+/* ---------- horario ---------- */
+.horario{border-top:1px solid var(--linea);margin-top:4px}
+.hoy{display:flex;align-items:center;gap:9px;padding:17px 4px 15px;
+  font-size:15px;font-weight:600;width:100%;background:none;border:0;
+  font-family:inherit;color:inherit;cursor:pointer;text-align:left}
+.punto{width:8px;height:8px;border-radius:50%;background:#2CA04A;flex:none}
+.punto.cerrado{background:#C0392B}
+.hoy .fle{margin-left:auto;transition:transform .2s ease}
+.hoy[aria-expanded="true"] .fle{transform:rotate(90deg)}
+.dias{display:none;padding-bottom:12px}
+.dias.abierto{display:block}
+.dia{display:flex;justify-content:space-between;padding:7px 4px;font-size:14px;
+  color:var(--tinta-suave)}
+.dia.actual{color:var(--tinta);font-weight:600}
+
+/* ---------- pie ---------- */
+.pie{text-align:center;padding:30px 20px 38px;border-top:1px solid var(--linea);
+  margin-top:22px}
+.pie a{color:var(--tinta-suave);text-decoration:none;font-size:12.5px;font-weight:500}
+.pie a b{color:var(--tinta)}
+
+.aviso{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(14px);
+  background:var(--tinta);color:var(--carta);padding:11px 19px;border-radius:11px;
+  font-size:14px;font-weight:500;opacity:0;pointer-events:none;
+  transition:opacity .2s ease,transform .2s ease;z-index:9}
+.aviso.ver{opacity:1;transform:translateX(-50%) translateY(0)}
+
+a:focus-visible,button:focus-visible{outline:3px solid var(--acento);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<main class="marco" id="app"></main>
+<div class="aviso" id="aviso"></div>
+
+<script>
+/* ==========================================================================
+   EDITA SOLO ESTE BLOQUE PARA CADA CLIENTE
+   ========================================================================== */
+const NEGOCIO = {
+
+  nombre: "Maxi Autos",
+  lema: "Compra y venta de vehículos",
+  descripcion: "Vehículos nuevos y usados, revisados y con papeles en regla. Financiamiento y recepción de tu carro como parte de pago.",
+
+  // Imagenes: sube los archivos a GitHub junto a esta pagina
+  logo: "maxiautos-logo.jpg",
+  portada: "",
+
+  color: "#F4451E",            // color de acento del cliente
+
+  // El enlace de resena que sacas del generador
+  resena: "https://search.google.com/local/writereview?placeid=PEGA_AQUI_EL_CODIGO",
+
+  whatsapp: "584141234567",    // numero con codigo de pais, sin + ni espacios
+  mensajeWhatsapp: "Hola, los vi en su placa. Quisiera información sobre un vehículo.",
+
+  telefono: "+58 414 123 4567",
+  email: "",                   // dejalo vacio si no aplica
+
+  enlaces: [
+    { tipo:"instagram", texto:"@maxiautos",    url:"https://instagram.com/maxiautos" },
+    { tipo:"tiktok",    texto:"@maxiautos",    url:"https://tiktok.com/@maxiautos" },
+    { tipo:"web",       texto:"Ver inventario", url:"https://ejemplo.com" }
+  ],
+
+  direccion: "PON AQUÍ LA DIRECCIÓN DEL CONCESIONARIO",
+  mapa: "https://maps.google.com/?q=Maxi+Autos",
+
+  // Formato 24h. Pon "" en el dia que cierran.
+  horario: {
+    lunes:"08:00-17:00", martes:"08:00-17:00", miércoles:"08:00-17:00",
+    jueves:"08:00-17:00", viernes:"08:00-17:00", sábado:"08:00-13:00", domingo:""
+  },
+
+  // Tu marca, la que va abajo del todo
+  marca: { nombre:"Target Digital", url:"https://instagram.com/targetadigital" }
+};/* ========================================================================== */
+
+
+/* --- iconos --- */
+const I = {
+  whatsapp:'<path fill="currentColor" d="M12 2a10 10 0 00-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1012 2zm0 2a8 8 0 016.3 12.9l-.3.4.7 2.5-2.6-.7-.4.2A8 8 0 1112 4zm-3.4 4c-.2 0-.5 0-.7.4-.2.4-.9.9-.9 2.1s.9 2.4 1 2.6c.1.2 1.7 2.7 4.2 3.7 2.1.8 2.5.7 3 .6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.1-.2-.2-.5-.3l-1.7-.8c-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 01-1.9-1.2 7.4 7.4 0 01-1.4-1.7c-.1-.2 0-.4.1-.5l.4-.5.3-.5v-.5l-.7-1.8c-.2-.4-.4-.4-.6-.4z"/>',
+  instagram:'<path fill="currentColor" d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2 0 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2a3.9 3.9 0 01-2.3 2.3c-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4a3.9 3.9 0 01-2.3-2.3c-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.7-.1 4.9-.1zm0 1.8c-3.1 0-3.5 0-4.8.1-.9 0-1.4.2-1.7.3-.4.2-.7.4-1 .6-.3.3-.5.6-.6 1-.1.3-.3.8-.3 1.7-.1 1.3-.1 1.7-.1 4.8s0 3.5.1 4.8c0 .9.2 1.4.3 1.7.2.4.4.7.6 1 .3.3.6.5 1 .6.3.1.8.3 1.7.3 1.3.1 1.7.1 4.8.1s3.5 0 4.8-.1c.9 0 1.4-.2 1.7-.3.4-.2.7-.4 1-.6.3-.3.5-.6.6-1 .1-.3.3-.8.3-1.7.1-1.3.1-1.7.1-4.8s0-3.5-.1-4.8c0-.9-.2-1.4-.3-1.7a2.7 2.7 0 00-.6-1 2.7 2.7 0 00-1-.6c-.3-.1-.8-.3-1.7-.3-1.3-.1-1.7-.1-4.8-.1zm0 3.1a4.9 4.9 0 110 9.8 4.9 4.9 0 010-9.8zm0 1.8a3.1 3.1 0 100 6.2 3.1 3.1 0 000-6.2zm5.1-3.3a1.2 1.2 0 110 2.3 1.2 1.2 0 010-2.3z"/>',
+  tiktok:'<path fill="currentColor" d="M16.6 2h-3v13.4a2.3 2.3 0 11-2.3-2.3c.2 0 .4 0 .6.1V10a5.6 5.6 0 00-.6 0 5.4 5.4 0 105.4 5.4V8.6a6.5 6.5 0 003.8 1.2V6.7a3.8 3.8 0 01-3.9-3.8V2z"/>',
+  web:'<path fill="none" stroke="currentColor" stroke-width="1.8" d="M12 3a9 9 0 100 18 9 9 0 000-18zm0 0c2.5 2.3 3.8 5.4 3.8 9s-1.3 6.7-3.8 9c-2.5-2.3-3.8-5.4-3.8-9S9.5 5.3 12 3zM3.4 9h17.2M3.4 15h17.2"/>',
+  mapa:'<path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 21s7-5.6 7-11a7 7 0 10-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/>',
+  tel:'<path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M5 3h3.5l1.8 4.4-2.2 1.6a12 12 0 006.9 6.9l1.6-2.2L21 15.5V19a2 2 0 01-2.2 2A16.8 16.8 0 013 5.2 2 2 0 015 3z"/>',
+  mail:'<rect x="3" y="5" width="18" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path fill="none" stroke="currentColor" stroke-width="1.8" d="M3.6 6.8L12 12.6l8.4-5.8"/>',
+  reloj:'<circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M12 7v5.3l3.4 2"/>',
+  contacto:'<path fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="M12 3v11m0 0l-4-4m4 4l4-4M4 17v2.5A1.5 1.5 0 005.5 21h13a1.5 1.5 0 001.5-1.5V17"/>',
+  compartir:'<path fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M12 16V3m0 0L8 7m4-4l4 4M5 13v6.5A1.5 1.5 0 006.5 21h11a1.5 1.5 0 001.5-1.5V13"/>',
+  flecha:'<path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M2 2l5 5-5 5"/>',
+  google:'<path fill="#4285F4" d="M21.6 12.2c0-.7-.1-1.4-.2-2H12v3.9h5.4a4.6 4.6 0 01-2 3v2.5h3.2c1.9-1.7 3-4.3 3-7.4z"/><path fill="#34A853" d="M12 22c2.7 0 5-.9 6.6-2.4l-3.2-2.5c-.9.6-2 1-3.4 1-2.6 0-4.8-1.8-5.6-4.1H3.1v2.6A10 10 0 0012 22z"/><path fill="#FBBC05" d="M6.4 14c-.2-.6-.3-1.3-.3-2s.1-1.4.3-2V7.4H3.1a10 10 0 000 9.2L6.4 14z"/><path fill="#EA4335" d="M12 5.9c1.5 0 2.8.5 3.8 1.5l2.8-2.8A10 10 0 003.1 7.4L6.4 10C7.2 7.7 9.4 5.9 12 5.9z"/>'
+};
+const svg = (d,cls) => `<svg class="${cls||''}" viewBox="0 0 24 24" aria-hidden="true">${d}</svg>`;
+
+const DIAS = ["domingo","lunes","martes","miércoles","jueves","viernes","sábado"];
+
+/* --- estado del horario --- */
+function estado(){
+  const ahora = new Date();
+  const hoy = DIAS[ahora.getDay()];
+  const franja = (NEGOCIO.horario || {})[hoy];
+  if(!franja) return { hoy, abierto:false, texto:"Cerrado hoy" };
+  const [a,b] = franja.split("-");
+  const min = h => (+h.split(":")[0])*60 + (+h.split(":")[1]);
+  const m = ahora.getHours()*60 + ahora.getMinutes();
+  const dentro = m >= min(a) && m < min(b);
+  return { hoy, abierto:dentro,
+           texto: dentro ? `Abierto hasta las ${b}` : `Cerrado · hoy de ${a} a ${b}` };
+}
+
+/* --- guardar contacto (.vcf) --- */
+function guardarContacto(){
+  const L = [
+    "BEGIN:VCARD","VERSION:3.0",
+    `FN:${NEGOCIO.nombre}`,
+    `ORG:${NEGOCIO.nombre}`
+  ];
+  if(NEGOCIO.telefono) L.push(`TEL;TYPE=WORK:${NEGOCIO.telefono}`);
+  if(NEGOCIO.whatsapp) L.push(`TEL;TYPE=CELL:+${NEGOCIO.whatsapp}`);
+  if(NEGOCIO.email)    L.push(`EMAIL:${NEGOCIO.email}`);
+  if(NEGOCIO.direccion)L.push(`ADR;TYPE=WORK:;;${NEGOCIO.direccion};;;;`);
+  L.push(`URL:${location.href}`);
+  if(NEGOCIO.descripcion) L.push(`NOTE:${NEGOCIO.descripcion}`);
+  L.push("END:VCARD");
+
+  const blob = new Blob([L.join("\r\n")], {type:"text/vcard;charset=utf-8"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = NEGOCIO.nombre.replace(/[^\w\sáéíóúñÁÉÍÓÚÑ-]/g,"").trim() + ".vcf";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href), 4000);
+  avisar("Contacto descargado");
+}
+
+function compartir(){
+  const datos = { title:NEGOCIO.nombre, text:NEGOCIO.lema||NEGOCIO.nombre, url:location.href };
+  if(navigator.share){ navigator.share(datos).catch(()=>{}); return; }
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(location.href)
+      .then(()=>avisar("Enlace copiado"))
+      .catch(()=>avisar("No se pudo copiar"));
+  }
+}
+
+let temporizador;
+function avisar(t){
+  const el = document.getElementById("aviso");
+  el.textContent = t; el.classList.add("ver");
+  clearTimeout(temporizador);
+  temporizador = setTimeout(()=>el.classList.remove("ver"), 2200);
+}
+
+/* --- construir la pagina --- */
+function pintar(){
+  const N = NEGOCIO;
+  document.title = N.nombre;
+  document.documentElement.style.setProperty("--acento", N.color || "#0F6E6A");
+
+  const est = estado();
+  const wa = N.whatsapp
+    ? `https://wa.me/${N.whatsapp}?text=${encodeURIComponent(N.mensajeWhatsapp||"")}` : "";
+
+  const tarjetas = [
+    N.resena ? `<a class="tarjeta resenas" href="${N.resena}" target="_blank" rel="noopener">
+        ${svg(I.google)}<span>Reseñas en Google</span></a>` : ""
+  ].concat((N.enlaces||[]).map(e => `
+    <a class="tarjeta" href="${e.url}" target="_blank" rel="noopener">
+      ${svg(I[e.tipo] || I.web)}<span>${e.texto}</span>
+    </a>`)).join("");
+
+  const contacto = [
+    N.direccion ? `<a class="fila" href="${N.mapa||"#"}" target="_blank" rel="noopener">
+        ${svg(I.mapa,"ico")}
+        <span class="txt">${N.direccion}<br><span class="sub">Ver en el mapa</span></span>
+        ${svg(I.flecha,"fle")}</a>` : "",
+    N.telefono ? `<a class="fila" href="tel:${N.telefono.replace(/\s/g,"")}">
+        ${svg(I.tel,"ico")}<span class="txt">${N.telefono}</span>${svg(I.flecha,"fle")}</a>` : "",
+    N.email ? `<a class="fila" href="mailto:${N.email}">
+        ${svg(I.mail,"ico")}<span class="txt">${N.email}</span>${svg(I.flecha,"fle")}</a>` : ""
+  ].join("");
+
+  const dias = DIAS.slice(1).concat(DIAS[0]).map(d=>{
+    const f = (N.horario||{})[d];
+    return `<div class="dia${d===est.hoy?" actual":""}">
+      <span>${d[0].toUpperCase()+d.slice(1)}</span>
+      <span>${f ? f.replace("-"," – ") : "Cerrado"}</span></div>`;
+  }).join("");
+
+  document.getElementById("app").innerHTML = `
+    <div class="portada" style="${N.portada?`background-image:url('${N.portada}')`:""}"></div>
+
+    <header class="identidad">
+      ${N.logo?`<img class="logo" src="${N.logo}" alt="${N.nombre}">`:""}
+      <h1 class="nombre">${N.nombre}</h1>
+      ${N.lema?`<p class="lema">${N.lema}</p>`:""}
+      ${N.descripcion?`<p class="descripcion">${N.descripcion}</p>`:""}
+    </header>
+
+
+    <div class="acciones">
+      ${wa?`<a class="accion" href="${wa}" target="_blank" rel="noopener">
+        ${svg(I.whatsapp)} WhatsApp</a>`:""}
+      <button class="accion gris" id="btn-contacto">${svg(I.contacto)} Guardar</button>
+    </div>
+
+    ${tarjetas?`<div class="seccion"><div class="rotulo">Enlaces</div></div>
+      <nav class="rejilla">${tarjetas}</nav>`:""}
+    ${contacto?`<section class="seccion"><div class="rotulo">Dónde estamos</div>${contacto}</section>`:""}
+
+    <section class="seccion">
+      <div class="horario">
+        <button class="hoy" id="btn-horario" aria-expanded="false" aria-controls="dias">
+          <span class="punto${est.abierto?"":" cerrado"}"></span>
+          ${est.texto}
+          ${svg(I.flecha,"fle")}
+        </button>
+        <div class="dias" id="dias">${dias}</div>
+      </div>
+    </section>
+
+    <div class="acciones" style="grid-template-columns:1fr;padding-top:20px">
+      <button class="accion gris" id="btn-compartir">${svg(I.compartir)} Compartir esta página</button>
+    </div>
+
+    <footer class="pie">
+      <a href="${N.marca?.url||"#"}" target="_blank" rel="noopener">
+        Hecho por <b>${N.marca?.nombre||""}</b></a>
+    </footer>`;
+
+  document.getElementById("btn-contacto").addEventListener("click", guardarContacto);
+  document.getElementById("btn-compartir").addEventListener("click", compartir);
+
+  const bh = document.getElementById("btn-horario");
+  bh.addEventListener("click", ()=>{
+    const abierto = document.getElementById("dias").classList.toggle("abierto");
+    bh.setAttribute("aria-expanded", abierto);
+  });
+
+}
+
+pintar();
+</script>
+</body>
+</html>
