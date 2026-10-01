@@ -19,7 +19,6 @@
   --linea:#E4E7E6;
   --fondo:#EFF1F0;
   --carta:#FFFFFF;
-  --oro:#E8A317;
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px);
   padding-bottom:env(safe-area-inset-bottom,0px);
@@ -55,24 +54,6 @@ body{
 .descripcion{color:var(--tinta-suave);font-size:14.5px;margin:12px 0 0;
   max-width:34ch;margin-inline:auto}
 
-/* ---------- bloque de resena: el elemento principal ---------- */
-.resena{margin:4px 20px 24px;background:var(--tinta);border-radius:22px;
-  padding:26px 22px 22px;text-align:center;color:#fff;position:relative;overflow:hidden}
-:root:not([data-theme="light"]) .resena{background:#0A1219}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .resena{
-  background:#050A0E;border:1px solid #23313B}}
-.estrellas{display:flex;justify-content:center;gap:7px;margin-bottom:15px}
-.estrellas svg{width:33px;height:33px;fill:rgba(255,255,255,.14);
-  transform:scale(.72)}
-.estrellas svg.on{fill:var(--oro);transform:scale(1);
-  transition:fill .22s ease,transform .32s cubic-bezier(.2,1.5,.4,1)}
-.resena h2{font-size:20px;font-weight:700;letter-spacing:-.02em;margin:0 0 5px}
-.resena p{font-size:13.5px;color:rgba(255,255,255,.62);margin:0 0 19px}
-.btn-resena{display:flex;align-items:center;justify-content:center;gap:9px;
-  background:#fff;color:#16232E;text-decoration:none;font-weight:700;font-size:16px;
-  padding:15px;border-radius:14px}
-.btn-resena:active{transform:scale(.975)}
-
 /* ---------- acciones ---------- */
 .acciones{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 20px 22px}
 .accion{display:flex;align-items:center;justify-content:center;gap:8px;
@@ -82,6 +63,16 @@ body{
   border:1.5px solid var(--linea)}
 .accion:active{transform:scale(.975)}
 .accion svg{width:19px;height:19px;flex:none}
+
+/* ---------- cuadricula de enlaces ---------- */
+.rejilla{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 20px}
+.tarjeta{display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:9px;padding:18px 12px;border-radius:16px;background:var(--fondo);
+  text-decoration:none;color:inherit;text-align:center;font-weight:500;
+  font-size:14px;line-height:1.3;min-height:92px}
+.tarjeta svg{width:25px;height:25px;flex:none;color:var(--acento)}
+.tarjeta:active{transform:scale(.97)}
+.tarjeta.resenas svg{color:inherit}
 
 /* ---------- filas de enlaces ---------- */
 .seccion{padding:0 20px}
@@ -138,49 +129,47 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--acento);outline-off
    ========================================================================== */
 const NEGOCIO = {
 
-  nombre: "Reef Zone",
-  lema: "Pesca, apnea y buceo",
-  descripcion: "Equipos para pesca de altura, pesca de río, apnea, jigging y pesca submarina.",
+  nombre: "Maxi Autos",
+  lema: "Compra y venta de vehículos",
+  descripcion: "Vehículos nuevos y usados, revisados y con papeles en regla. Financiamiento y recepción de tu carro como parte de pago.",
 
-  // Imagenes: sube los archivos junto a esta pagina, o pega un enlace completo
-  logo: "logo.jpg",
-  portada: "portada.jpg",
+  // Imagenes: sube los archivos a GitHub junto a esta pagina
+  logo: "maxiautos-logo.jpg",
+  portada: "maxiautos-portada.jpg",
 
-  color: "#0F6E6A",            // color de acento del cliente
+  color: "#1B4D8F",            // color de acento del cliente
 
   // El enlace de resena que sacas del generador
   resena: "https://search.google.com/local/writereview?placeid=PEGA_AQUI_EL_CODIGO",
 
   whatsapp: "584141234567",    // numero con codigo de pais, sin + ni espacios
-  mensajeWhatsapp: "Hola, los encontré por la placa en el local.",
+  mensajeWhatsapp: "Hola, los vi en su placa. Quisiera información sobre un vehículo.",
 
   telefono: "+58 414 123 4567",
   email: "",                   // dejalo vacio si no aplica
 
   enlaces: [
-    { tipo:"instagram", texto:"@reefzonevzla",       url:"https://instagram.com/reefzonevzla" },
-    { tipo:"tiktok",    texto:"@reefzone_",          url:"https://tiktok.com/@reefzone_" },
-    { tipo:"web",       texto:"Catálogo de productos", url:"https://ejemplo.com" }
+    { tipo:"instagram", texto:"@maxiautos",    url:"https://instagram.com/maxiautos" },
+    { tipo:"tiktok",    texto:"@maxiautos",    url:"https://tiktok.com/@maxiautos" },
+    { tipo:"web",       texto:"Ver inventario", url:"https://ejemplo.com" }
   ],
 
-  direccion: "C.C. Parque Cerro Verde, nivel 1",
-  mapa: "https://maps.google.com/?q=Parque+Cerro+Verde",
+  direccion: "PON AQUÍ LA DIRECCIÓN DEL CONCESIONARIO",
+  mapa: "https://maps.google.com/?q=Maxi+Autos",
 
   // Formato 24h. Pon "" en el dia que cierran.
   horario: {
-    lunes:"10:00-19:00", martes:"10:00-19:00", miércoles:"10:00-19:00",
-    jueves:"10:00-19:00", viernes:"10:00-19:00", sábado:"10:00-20:00", domingo:""
+    lunes:"08:00-17:00", martes:"08:00-17:00", miércoles:"08:00-17:00",
+    jueves:"08:00-17:00", viernes:"08:00-17:00", sábado:"08:00-13:00", domingo:""
   },
 
   // Tu marca, la que va abajo del todo
-  marca: { nombre:"Tu Marca", url:"https://instagram.com/tumarca" }
-};
-/* ========================================================================== */
+  marca: { nombre:"Target Digital", url:"https://instagram.com/targetadigital" }
+};/* ========================================================================== */
 
 
 /* --- iconos --- */
 const I = {
-  estrella:'<path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/>',
   whatsapp:'<path fill="currentColor" d="M12 2a10 10 0 00-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1012 2zm0 2a8 8 0 016.3 12.9l-.3.4.7 2.5-2.6-.7-.4.2A8 8 0 1112 4zm-3.4 4c-.2 0-.5 0-.7.4-.2.4-.9.9-.9 2.1s.9 2.4 1 2.6c.1.2 1.7 2.7 4.2 3.7 2.1.8 2.5.7 3 .6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.1-.2-.2-.5-.3l-1.7-.8c-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 01-1.9-1.2 7.4 7.4 0 01-1.4-1.7c-.1-.2 0-.4.1-.5l.4-.5.3-.5v-.5l-.7-1.8c-.2-.4-.4-.4-.6-.4z"/>',
   instagram:'<path fill="currentColor" d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2 0 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2a3.9 3.9 0 01-2.3 2.3c-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4a3.9 3.9 0 01-2.3-2.3c-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.7-.1 4.9-.1zm0 1.8c-3.1 0-3.5 0-4.8.1-.9 0-1.4.2-1.7.3-.4.2-.7.4-1 .6-.3.3-.5.6-.6 1-.1.3-.3.8-.3 1.7-.1 1.3-.1 1.7-.1 4.8s0 3.5.1 4.8c0 .9.2 1.4.3 1.7.2.4.4.7.6 1 .3.3.6.5 1 .6.3.1.8.3 1.7.3 1.3.1 1.7.1 4.8.1s3.5 0 4.8-.1c.9 0 1.4-.2 1.7-.3.4-.2.7-.4 1-.6.3-.3.5-.6.6-1 .1-.3.3-.8.3-1.7.1-1.3.1-1.7.1-4.8s0-3.5-.1-4.8c0-.9-.2-1.4-.3-1.7a2.7 2.7 0 00-.6-1 2.7 2.7 0 00-1-.6c-.3-.1-.8-.3-1.7-.3-1.3-.1-1.7-.1-4.8-.1zm0 3.1a4.9 4.9 0 110 9.8 4.9 4.9 0 010-9.8zm0 1.8a3.1 3.1 0 100 6.2 3.1 3.1 0 000-6.2zm5.1-3.3a1.2 1.2 0 110 2.3 1.2 1.2 0 010-2.3z"/>',
   tiktok:'<path fill="currentColor" d="M16.6 2h-3v13.4a2.3 2.3 0 11-2.3-2.3c.2 0 .4 0 .6.1V10a5.6 5.6 0 00-.6 0 5.4 5.4 0 105.4 5.4V8.6a6.5 6.5 0 003.8 1.2V6.7a3.8 3.8 0 01-3.9-3.8V2z"/>',
@@ -264,12 +253,13 @@ function pintar(){
   const wa = N.whatsapp
     ? `https://wa.me/${N.whatsapp}?text=${encodeURIComponent(N.mensajeWhatsapp||"")}` : "";
 
-  const filas = (N.enlaces||[]).map(e => `
-    <a class="fila" href="${e.url}" target="_blank" rel="noopener">
-      ${svg(I[e.tipo] || I.web, "ico")}
-      <span class="txt">${e.texto}</span>
-      ${svg(I.flecha,"fle")}
-    </a>`).join("");
+  const tarjetas = [
+    N.resena ? `<a class="tarjeta resenas" href="${N.resena}" target="_blank" rel="noopener">
+        ${svg(I.google)}<span>Reseñas en Google</span></a>` : ""
+  ].concat((N.enlaces||[]).map(e => `
+    <a class="tarjeta" href="${e.url}" target="_blank" rel="noopener">
+      ${svg(I[e.tipo] || I.web)}<span>${e.texto}</span>
+    </a>`)).join("");
 
   const contacto = [
     N.direccion ? `<a class="fila" href="${N.mapa||"#"}" target="_blank" rel="noopener">
@@ -299,16 +289,6 @@ function pintar(){
       ${N.descripcion?`<p class="descripcion">${N.descripcion}</p>`:""}
     </header>
 
-    <section class="resena">
-      <div class="estrellas" id="estrellas" aria-hidden="true">
-        ${Array(5).fill(`<svg viewBox="0 0 24 24">${I.estrella}</svg>`).join("")}
-      </div>
-      <h2>¿Cómo te fue con nosotros?</h2>
-      <p>Tu opinión ayuda a que más gente nos encuentre.</p>
-      <a class="btn-resena" href="${N.resena}" target="_blank" rel="noopener">
-        ${svg(I.google)} Escribir reseña
-      </a>
-    </section>
 
     <div class="acciones">
       ${wa?`<a class="accion" href="${wa}" target="_blank" rel="noopener">
@@ -316,7 +296,8 @@ function pintar(){
       <button class="accion gris" id="btn-contacto">${svg(I.contacto)} Guardar</button>
     </div>
 
-    ${filas?`<section class="seccion"><div class="rotulo">Síguenos</div>${filas}</section>`:""}
+    ${tarjetas?`<div class="seccion"><div class="rotulo">Enlaces</div></div>
+      <nav class="rejilla">${tarjetas}</nav>`:""}
     ${contacto?`<section class="seccion"><div class="rotulo">Dónde estamos</div>${contacto}</section>`:""}
 
     <section class="seccion">
@@ -348,11 +329,6 @@ function pintar(){
     bh.setAttribute("aria-expanded", abierto);
   });
 
-  // las estrellas se encienden una a una
-  const lentas = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const est5 = document.querySelectorAll("#estrellas svg");
-  est5.forEach((s,i)=> lentas ? s.classList.add("on")
-                              : setTimeout(()=>s.classList.add("on"), 260 + i*105));
 }
 
 pintar();
