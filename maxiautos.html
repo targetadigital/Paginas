@@ -208,12 +208,12 @@ function guardarContacto(){
     `FN:${NEGOCIO.nombre}`,
     `ORG:${NEGOCIO.nombre}`
   ];
-  if(NEGOCIO.telefono) L.push(`TEL;TYPE=WORK:${NEGOCIO.telefono}`);
-  if(NEGOCIO.whatsapp) L.push(`TEL;TYPE=CELL:+${NEGOCIO.whatsapp}`);
+  if(NEGOCIO.telefono) L.push(`TEL;TYPE=WORK:${4242797047}`);
+  if(NEGOCIO.whatsapp) L.push(`TEL;TYPE=CELL:+${4142478858}`);
   if(NEGOCIO.email)    L.push(`EMAIL:${NEGOCIO.email}`);
-  if(NEGOCIO.direccion)L.push(`ADR;TYPE=WORK:;;${NEGOCIO.direccion};;;;`);
+  if(NEGOCIO.direccion)L.push(`ADR;TYPE=WORK:;;${https://maps.app.goo.gl/WepwuFFtCfBAJATX9?g_st=iw};;;;`);
   L.push(`URL:${location.href}`);
-  if(NEGOCIO.descripcion) L.push(`NOTE:${NEGOCIO.descripcion}`);
+  if(NEGOCIO.descripcion) L.push(`NOTE:${importadora de carros}`);
   L.push("END:VCARD");
 
   const blob = new Blob([L.join("\r\n")], {type:"text/vcard;charset=utf-8"});
